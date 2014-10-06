@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="70dp"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <EditText
+            android:id="@+id/form_grupo_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/form_grupo_nome" />
+        
+        <Button
+            android:id="@+id/search_contatos"
+            style="@style/ShadowText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background_disabled"
+            android:drawableRight="@android:drawable/ic_input_add"
+            android:gravity="center"
+            android:text="@string/buscar_contatos"
+            android:textColor="@color/text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/contatos_grupo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.89"
+            android:orientation="vertical" />
+
+        <Button
+            android:id="@+id/btn_form"
+            style="@style/ShadowText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_background_states"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/comum_confirmar"
+            android:textColor="@color/text"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+<!-- From: file:/C:/WORKSPACE_COLLACT/MyMarketApp/app/src/main/res/layout/fragment_form_grupo.xml -->

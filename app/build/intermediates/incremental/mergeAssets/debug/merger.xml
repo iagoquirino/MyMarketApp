@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="4.4.52" >
+        <source path="C:\WORKSPACE_COLLACT\MyMarketApp\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\4.4.52\assets" />
+    </dataSet>
+    <dataSet config="19.1.0" >
+        <source path="C:\WORKSPACE_COLLACT\MyMarketApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="C:\WORKSPACE_COLLACT\MyMarketApp\app\src\main\assets" >
+            <file
+                name="fonts/Roboto-Regular.ttf"
+                path="C:\WORKSPACE_COLLACT\MyMarketApp\app\src\main\assets\fonts\Roboto-Regular.ttf" />
+        </source>
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="C:\WORKSPACE_COLLACT\MyMarketApp\app\src\debug\assets" />
+    </dataSet>
+
+</merger>

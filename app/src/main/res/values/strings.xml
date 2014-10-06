@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="comum_registro_inserido_sucesso">Registro inserido com sucesso!</string>
+    <string name="comum_registro_alterado_sucesso">Registro alterado com sucesso!</string>
+    <string name="comum_registro_deletado_sucesso">Registro deletado com sucesso!</string>
+    <string name="comum_selecione">Selecione uma opção</string>
+    <string name="comum_selecionado">selecionado</string>
+    <string name="comum_selecionados">selecionados</string>
+    <string name="comum_nao">Não</string>
+    <string name="comum_sim">Sim</string>
+    <string name="comum_sair_app">Deseja realmente sair do aplicativo?</string>
+    <string name="comum_deletar_registro">Deseja realmente deletar este registro?</string>
+    <string name="comum_confirmar_compra">Confirme o valor desta compra.</string>
+    <string name="comum_confirmar">Confirmar</string>
+    <string name="comum_cancelar">Cancelar</string>
+    <string name="comum_inserir">Inserir</string>
+    <string name="comum_alterar">Alterar</string>
+    <string name="comum_logout">Logout</string>
+    <string name="app_name">Market</string>
+    <string name="lembretes">Lembretes</string>
+    <string name="listas">Listas</string>
+    <string name="grupos">Grupos</string>
+    <string name="numerodecelular">Digite Seu Número de Celular</string>
+    <string name="acessar">Acessar</string>
+    <string name="numero_invalido">Número inválido!!</string>
+    <string name="internet_fora">Verifique sua Internet!!</string>
+    <string name="menu_configuracoes">Configurações</string>
+    <string name="menu_lista_compras">Lista de Compras</string>
+    <string name="menu_meus_grupos">Meus Grupos</string>
+    <string name="menu_meus_lembretes">Lembretes</string>
+    <string name="menu_sair">Sair</string>
+    <string name="menu_novo">Novo</string>
+    <string name="menu_perfil">Meu Perfil</string>
+    <string name="menu_val_add_produtos">Listar Produtos</string>
+    <string name="menu_val_ja_comprado">Ver Compras</string>
+    <string name="menu_val_sel_produtos">Selecionar Produtos Comprados</string>
+    <string name="cxmenu_deletar">Deletar</string>
+    <string name="cxmenu_alterar">Alterar</string>
+    <string name="cxmenu_informacao">Ver Informações</string>
+    <string name="cx_menu_enviar_compra">Enviar Compra</string>
+    <string name="server_uri">http://mymarketapi.herokuapp.com/api/</string>
+    <string name="status_offline">Offline</string>
+    <string name="status_online">Online</string>
+
+    <!-- FORM LISTA COMPRAS -->
+    <string name="form_list_compras_nome">Nome da Lista de Compras</string>
+    <string name="form_list_compras_grupo">Selecione um grupo</string>
+    <!-- FORM PRODUTOS -->
+    <string name="form_produtos_nome">Nome do Produto</string>
+    <string name="form_produtos_marca">Marca</string>
+    <string name="form_produtos_quantidade">Quantidade</string>
+    <string name="form_produtos_validar_nome">Insira algum nome para o produto!</string>
+    <!-- FORM GRUPO -->
+    <string name="form_grupo_nome">Nome do Grupo</string>
+    <string name="buscar_contatos">Buscar Contatos</string>
+
+    <!-- TELAS -->
+    <string name="tela_lista_compras">Lista de Compras</string>
+    <string name="tela_grupos">Grupos</string>
+    <string name="tela_produtos">Produtos</string>
+
+    <!-- POPUP VALOR COMPRA -->
+    <string name="popup_valor_compra">Insira o valor da compra.</string>
+    <string name="admob_id">admob</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
