@@ -27,7 +27,8 @@
 
         <activity
             android:name="br.com.mymarket.activities.SplashActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -36,27 +37,32 @@
 
         <activity
             android:name="br.com.mymarket.activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         
         <activity
             android:name="br.com.mymarket.activities.ListaComprasActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
 		</activity>
 		
         <activity
             android:name="br.com.mymarket.activities.ProdutosActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
 		</activity>        
 		
         <activity
             android:name="br.com.mymarket.activities.GrupoActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
 		</activity>
 		
         <activity
             android:name="br.com.mymarket.activities.PessoaActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
 		</activity>        
 		
 <!--         <activity -->

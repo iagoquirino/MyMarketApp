@@ -5,6 +5,7 @@
         <item name="android:actionBarStyle">@style/ActionBar</item>
         <item name="android:actionBarWidgetTheme">@style/ActionBarWidget</item>
         <item name="android:actionModeBackground">@color/background_action_bar</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="SignInEditText">

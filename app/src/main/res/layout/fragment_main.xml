@@ -7,9 +7,31 @@ android:layout_height="match_parent">
 	    android:layout_height="match_parent"
 	    android:layout_gravity="center_horizontal"
 	    android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/profilebackground"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:src="@drawable/ic_no_image"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome do Cara"
+                android:textSize="18dp"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
 	
 	    <TextView android:layout_width="match_parent"
-	      android:layout_height="match_parent" 
+	      android:layout_height="wrap_content"
 	      android:id="@+id/status_conexao" 
 	      android:textColor="@color/abc_search_url_text_selected"/>
 	    
@@ -19,9 +41,9 @@ android:layout_height="match_parent">
 	      android:text="INFO BLABLABLA"
 	      android:id="@+id/info"
 	      android:textColor="@color/abc_search_url_text_selected"/>
-	    
 
-	    <TextView 
+
+	    <TextView
 	      android:layout_width="match_parent"
 	      android:layout_height="wrap_content" 
 	      android:text="Crie novos Grupos"
