@@ -8,59 +8,68 @@ android:layout_height="match_parent">
 	    android:layout_gravity="center_horizontal"
 	    android:orientation="vertical" >
 
-        <LinearLayout
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
             android:background="@drawable/profilebackground"
-            android:orientation="vertical"
-            >
-            <ImageView
-                android:src="@drawable/ic_no_image"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_height="wrap_content" />
+            android:id="@+id/fundo" >
 
-            <TextView
+            <ImageView android:id="@+id/foto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="16dp"
+                android:src="@drawable/ic_no_image"
+                />
+
+            <TextView android:id="@+id/info"
+                android:textSize="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome do Cara"
-                android:textSize="18dp"
-                android:textColor="@android:color/white"/>
-        </LinearLayout>
+                android:textColor="#ffffff"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/foto"
+                />
 
-	
-	    <TextView android:layout_width="match_parent"
-	      android:layout_height="wrap_content"
-	      android:id="@+id/status_conexao" 
-	      android:textColor="@color/abc_search_url_text_selected"/>
-	    
-	    <TextView 
+            <TextView android:id="@+id/status_conexao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+         <TextView
 	      android:layout_width="match_parent"
 	      android:layout_height="wrap_content" 
-	      android:text="INFO BLABLABLA"
-	      android:id="@+id/info"
-	      android:textColor="@color/abc_search_url_text_selected"/>
-
-
-	    <TextView
-	      android:layout_width="match_parent"
-	      android:layout_height="wrap_content" 
-	      android:text="Crie novos Grupos"
+	      android:text="Crie novos Grupos."
+          android:padding="16dp"
+          android:layout_marginTop="16dp"
+          android:textSize="18dp"
 	      android:textColor="@color/abc_search_url_text_selected"
 	      />
 	    
 	    <TextView 
 	      android:layout_width="match_parent"
 	      android:layout_height="wrap_content" 
-	      android:text="Compartilhe sua lista de compras"
+	      android:text="Compartilhe sua lista de compras."
+          android:padding="16dp"
+          android:textSize="18dp"
 	      android:textColor="@color/abc_search_url_text_selected"
 	      />
 	    
 	    <TextView 
 	      android:layout_width="match_parent"
 	      android:layout_height="wrap_content" 
-	      android:text="Tenha informaçoes das Compras Realiadas"
+	      android:text="Acompanhe as compras realizadas."
+          android:padding="16dp"
+          android:textSize="18dp"
 	      android:textColor="@color/abc_search_url_text_selected"
 	      />	    
 	    
