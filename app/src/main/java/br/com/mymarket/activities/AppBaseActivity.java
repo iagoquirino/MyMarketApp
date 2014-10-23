@@ -120,5 +120,16 @@ public abstract class AppBaseActivity extends Activity {
 		Toast.makeText(this, getString(R.string.comum_registro_inserido_sucesso), Toast.LENGTH_LONG).show();	
 	}
 
+    public void toastAlterado() {
+        Toast.makeText(this, getString(R.string.comum_registro_alterado_sucesso), Toast.LENGTH_LONG).show();
+    }
+
+    public void toastExcluido(){
+        Toast.makeText(this, getString(R.string.comum_registro_deletado_sucesso), Toast.LENGTH_LONG).show();
+    }
+
+    public void toastErro() {
+        Toast.makeText(this, getString(R.string.erro_api), Toast.LENGTH_LONG).show();
+    }
 	
 }

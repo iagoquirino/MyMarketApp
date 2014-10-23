@@ -18,12 +18,15 @@ import android.view.View;
 import br.com.mymarket.R;
 import br.com.mymarket.constants.Constants;
 import br.com.mymarket.delegates.BuscaInformacaoDelegate;
+import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.model.Grupo;
 import br.com.mymarket.model.Pessoa;
 import br.com.mymarket.navegacao.EstadoGrupoActivity;
 import br.com.mymarket.receivers.GrupoReceiver;
 import br.com.mymarket.tasks.BuscarGrupoTask;
+import br.com.mymarket.tasks.PersistGrupoTask;
+import br.com.mymarket.webservice.WebClient;
 
 public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDelegate{
 	
@@ -97,11 +100,9 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
 			alertDialog.setPositiveButton(R.string.comum_sim, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
-					//FIXME CHAMAR DELETE.
 					if(getItemSelecionado() != null){
-						getListaGrupo().remove(getItemSelecionado());
+                        new PersistGrupoTask(getItemSelecionado().getId(),GrupoActivity.this,null, HttpMethod.DELETE).execute();
 					}
-					alteraEstadoEExecuta(EstadoGrupoActivity.LISTAS_RECEBIDAS);//FIXME ALTERAR INICIO.
 				}
 			});
 			alertDialog.setNegativeButton(R.string.comum_nao, null);
@@ -154,6 +155,10 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
 		new BuscarGrupoTask(getMyMarketApplication(), this.event).execute();
 	}
 
+    public void atualizarLista(){
+        alteraEstadoEExecuta(EstadoGrupoActivity.INICIO);
+    }
+
 	public void alteraEstadoEExecuta(EstadoGrupoActivity estado) {
 		this.estado = estado;
 		this.estado.executa(this);
@@ -178,11 +183,7 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
 		return super.onPrepareOptionsMenu(menu);
 	}
 
-	public void persiste(Grupo grupo) {
-		getListaGrupo().add(grupo);
-	}
-
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+ 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
 		contatosSelecionados = new ArrayList<Pessoa>();
 	    if (requestCode == 1) {

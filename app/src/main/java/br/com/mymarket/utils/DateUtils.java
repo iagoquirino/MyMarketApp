@@ -9,6 +9,10 @@ public class DateUtils {
 	public static String formatDate(Date date){
 		return new SimpleDateFormat("dd/MM/yyyy").format(date);
 	}
+
+    public static String formatTimestamp(Date date){
+        return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+    }
 	
 	public static String formatHour(Date date){
 		return new SimpleDateFormat("HH:mm:ss").format(date);

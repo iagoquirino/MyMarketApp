@@ -10,7 +10,7 @@ public class ItemCompra implements Serializable {
 	 */
 	private static final long serialVersionUID = 5624449590365259853L;
 
-	private long id;
+	private Long id;
 	
 	private Produto produto;
 	
@@ -18,11 +18,11 @@ public class ItemCompra implements Serializable {
 	
 	private Calendar dataAlteracao;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

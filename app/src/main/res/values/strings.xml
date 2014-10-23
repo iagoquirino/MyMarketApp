@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="erro_api">Erro ao tentar processar a operação!</string>
+    <string name="operacao.efetuada.com.sucesso">Operacao realizada com sucesso!</string>
     <string name="comum_registro_inserido_sucesso">Registro inserido com sucesso!</string>
     <string name="comum_registro_alterado_sucesso">Registro alterado com sucesso!</string>
     <string name="comum_registro_deletado_sucesso">Registro deletado com sucesso!</string>
@@ -54,11 +55,15 @@
     <!-- FORM GRUPO -->
     <string name="form_grupo_nome">Nome do Grupo</string>
     <string name="buscar_contatos">Buscar Contatos</string>
+    <string name="form_grupo_validar_nome">Insira algum nome para o grupo!</string>
+    <string name="form_grupo_validar_integrantes">Insira algum integrante para o grupo!</string>
 
     <!-- TELAS -->
     <string name="tela_lista_compras">Lista de Compras</string>
     <string name="tela_grupos">Grupos</string>
     <string name="tela_produtos">Produtos</string>
+    <string name="form_lista_compra_validar_nome">Insira algum nome para a lista de compra!</string>
+    <string name="form_lista_compra_validar_grupo">Insira algum grupo para a lista de compra!</string>
 
     <!-- POPUP VALOR COMPRA -->
     <string name="popup_valor_compra">Insira o valor da compra.</string>

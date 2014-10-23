@@ -13,17 +13,22 @@ public class Grupo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1640000875868104722L;
 
-	private long id;
+	private Long id;
 	
 	private String nome;
 	
 	private List<Pessoa> integrantes;
 	
-	private Calendar dataCobranca;
+	private String dataCobranca;
 	
-	private Calendar dataCriacao;
+	private String dataCriacao;
 	
-	private Calendar dataAlteracao;	
+	private String dataAlteracao;
+
+    public Grupo(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 
 	public Grupo(String nome) {
 		this.nome = nome;
@@ -32,11 +37,11 @@ public class Grupo implements Serializable {
 	public Grupo() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -56,27 +61,27 @@ public class Grupo implements Serializable {
 		this.integrantes = integrantes;
 	}
 
-	public Calendar getDataCobranca() {
+	public String getDataCobranca() {
 		return dataCobranca;
 	}
 
-	public void setDataCobranca(Calendar dataCobranca) {
+	public void setDataCobranca(String dataCobranca) {
 		this.dataCobranca = dataCobranca;
 	}
 
-	public Calendar getDataCriacao() {
+	public String getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(Calendar dataCriacao) {
+	public void setDataCriacao(String dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public Calendar getDataAlteracao() {
+	public String getDataAlteracao() {
 		return dataAlteracao;
 	}
 
-	public void setDataAlteracao(Calendar dataAlteracao) {
+	public void setDataAlteracao(String dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
 	

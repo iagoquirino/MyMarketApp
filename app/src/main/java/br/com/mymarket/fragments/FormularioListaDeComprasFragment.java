@@ -61,11 +61,11 @@ public class FormularioListaDeComprasFragment extends Fragment {
 			
 			private boolean validarListaCompra(ListaCompra listaCompra) {
 				if(listaCompra.getNome() == null || listaCompra.getNome().isEmpty()){
-					Toast.makeText(activity, getString(R.string.form_produtos_validar_nome), Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, getString(R.string.form_lista_compra_validar_nome), Toast.LENGTH_SHORT).show();
 					return false;
 				}
 				if(listaCompra.getGrupo() == null){
-					Toast.makeText(activity, getString(R.string.form_produtos_validar_nome), Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, getString(R.string.form_lista_compra_validar_grupo), Toast.LENGTH_SHORT).show();
 					return false;
 				}
 				return true;

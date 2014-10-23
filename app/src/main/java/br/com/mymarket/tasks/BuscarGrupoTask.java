@@ -4,11 +4,13 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import br.com.mymarket.MyMarketApplication;
+import br.com.mymarket.converters.GrupoConverter;
 import br.com.mymarket.delegates.ReceiverDelegate;
 import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.mocks.ListaGrupoMock;
 import br.com.mymarket.model.Grupo;
 import br.com.mymarket.webservice.Pagina;
+import br.com.mymarket.webservice.WebClient;
 
 public class BuscarGrupoTask extends AsyncTask<Pagina, Void, List<Grupo>> {
 
@@ -28,9 +30,9 @@ public class BuscarGrupoTask extends AsyncTask<Pagina, Void, List<Grupo>> {
         try {
             //FIXME FAZER PARTE SERVIDOR.
 //			Pagina paginaParaBuscar = paginas.length > 1? paginas[0] : new Pagina();        	
-//          String jsonDeResposta = new WebClient("post/list?" + paginaParaBuscar,this.application).get();
-//          List<ListaCompra> listasRecebidas = new ListaCompraConverter().convert(jsonDeResposta);
-            return ListaGrupoMock.get();
+            String jsonDeResposta = new WebClient("grupos/",this.application).get();
+            List<Grupo> listasRecebidas = new GrupoConverter().convert(jsonDeResposta);
+            return listasRecebidas;
         } catch (Exception e) {
             this.erro = e;
             return null;

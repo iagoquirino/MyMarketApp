@@ -12,7 +12,7 @@ public class Produto implements Serializable {
 	 */
 	private static final long serialVersionUID = -2914286244585036243L;
 
-	private long id;
+	private Long id;
 	
 	private String nome;
 	
@@ -34,11 +34,11 @@ public class Produto implements Serializable {
 	public Produto() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

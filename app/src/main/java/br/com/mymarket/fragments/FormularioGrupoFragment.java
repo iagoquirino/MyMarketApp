@@ -14,17 +14,28 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.protocol.HTTP;
+
 import br.com.mymarket.R;
 import br.com.mymarket.activities.GrupoActivity;
 import br.com.mymarket.activities.PessoaActivity;
 import br.com.mymarket.adapters.ContatosAdapter;
 import br.com.mymarket.adapters.FormGrupoContatoAdapter;
+import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.helpers.FormularioGrupoHelper;
 import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.model.Grupo;
 import br.com.mymarket.model.Pessoa;
 import br.com.mymarket.model.Produto;
 import br.com.mymarket.navegacao.EstadoGrupoActivity;
+import br.com.mymarket.tasks.PersistGrupoTask;
+import br.com.mymarket.webservice.WebClient;
 
 public class FormularioGrupoFragment extends Fragment {
 	
@@ -74,15 +85,14 @@ public class FormularioGrupoFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				Grupo grupo = formularioGrupoHelper.recuperarGrupo();
-				grupo.setIntegrantes(formAdapter.getLista());
+				//grupo.setIntegrantes(formAdapter.getLista());
 				if(validarGrupo(grupo)){
-					//TODO PERSIST OR POST OR PUT.
+                    String json = new Gson().toJson(grupo);
+
 					if(activity.getItemSelecionado() == null){
-						activity.persiste(grupo);
-						activity.toastInserido();
+                        new PersistGrupoTask(activity,json, HttpMethod.POST).execute();
 					}else{
-						activity.persiste(grupo);
-						activity.toastInserido();
+                        new PersistGrupoTask(grupo.getId(),activity,json,HttpMethod.PUT).execute();
 					}
 					activity.alteraEstadoEExecuta(EstadoGrupoActivity.LISTAS_RECEBIDAS);
 				}
@@ -90,12 +100,12 @@ public class FormularioGrupoFragment extends Fragment {
 			
 			private boolean validarGrupo(Grupo grupo) {
 				if(grupo.getNome() == null || grupo.getNome().isEmpty()){
-					Toast.makeText(activity, getString(R.string.form_produtos_validar_nome), Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity, getString(R.string.form_grupo_validar_nome), Toast.LENGTH_SHORT).show();
 					return false;
 				}
 				if(grupo.getIntegrantes() == null || grupo.getIntegrantes().isEmpty()){
-					Toast.makeText(activity, getString(R.string.form_produtos_validar_nome), Toast.LENGTH_SHORT).show();
-					return false;
+					Toast.makeText(activity, getString(R.string.form_grupo_validar_integrantes), Toast.LENGTH_SHORT).show();
+					//return false;
 				}
 				return true;
 			}

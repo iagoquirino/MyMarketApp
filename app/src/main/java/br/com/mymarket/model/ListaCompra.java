@@ -14,7 +14,7 @@ public class ListaCompra implements Serializable{
 	 */
 	private static final long serialVersionUID = 370641475206352884L;
 
-	private long id;
+	private Long id;
 	
 	private String nome;
 	
@@ -33,7 +33,7 @@ public class ListaCompra implements Serializable{
 	private StatusCompra statusCompra;
 
 
-	public ListaCompra(long id, Calendar dataCriacao, String nome) {
+	public ListaCompra(Long id, Calendar dataCriacao, String nome) {
 		this.id = id;
 		this.dataCriacao = dataCriacao;
 		this.nome = nome;
@@ -42,11 +42,11 @@ public class ListaCompra implements Serializable{
 	public ListaCompra() {
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

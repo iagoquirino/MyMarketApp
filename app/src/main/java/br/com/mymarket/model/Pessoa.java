@@ -13,7 +13,7 @@ public class Pessoa implements Serializable,Parcelable,Comparable<Pessoa>{
 	 */
 	private static final long serialVersionUID = 467678398697569121L;
 
-	private long id;
+	private Long id;
 	
 	private String celular;
 	
@@ -43,11 +43,11 @@ public class Pessoa implements Serializable,Parcelable,Comparable<Pessoa>{
         this.nome = source.readString();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
