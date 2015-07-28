@@ -6,6 +6,7 @@ import br.com.mymarket.activities.MainActivity;
 import br.com.mymarket.fragments.MainFragment;
 import br.com.mymarket.fragments.OauthFragment;
 import br.com.mymarket.fragments.ProgressFragment;
+import br.com.mymarket.fragments.RegisterFragment;
 import br.com.mymarket.utils.FragmentUtils;
 
 public enum EstadoMainActivity {
@@ -27,6 +28,11 @@ public enum EstadoMainActivity {
     },PERFIL{
         public void executa(MainActivity activity){
             this.colocaOuBuscaFragmentNaTela(activity,R.id.fragment_principal,MainFragment.class,false);
+        }
+    },
+    CADASTRAR{
+        public void executa(MainActivity activity){
+            this.colocaOuBuscaFragmentNaTela(activity,R.id.fragment_principal,RegisterFragment.class,false);
         }
     };
 

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="register">Registrar</string>
+    <string name="email">Endereço de Email</string>
+    <string name="confirm_email">Confirme seu Endereço de Email</string>
+    <string name="confirm_senha">Confirme sua senha</string>
+
+    <string name="senha">Insira sua senha</string>
+    <string name="cadastrar">Não possui cadastro? Clique Aqui!</string>
+    <string name="possuicadastro">Já possui um cadstro? Clique Aqui!</string>
     <string name="erro_api">Erro ao tentar processar a operação!</string>
+
+    <string name="nome">Nome Completo</string>
+
+
     <string name="operacao.efetuada.com.sucesso">Operacao realizada com sucesso!</string>
     <string name="comum_registro_inserido_sucesso">Registro inserido com sucesso!</string>
     <string name="comum_registro_alterado_sucesso">Registro alterado com sucesso!</string>
@@ -24,6 +36,9 @@
     <string name="grupos">Grupos</string>
     <string name="numerodecelular">Digite Seu Número de Celular</string>
     <string name="acessar">Acessar</string>
+
+    <string name="email_invalido">Email inválido!!</string>
+    <string name="password_invalido">Senha inválida!!</string>
     <string name="numero_invalido">Número inválido!!</string>
     <string name="internet_fora">Verifique sua Internet!!</string>
     <string name="menu_configuracoes">Configurações</string>

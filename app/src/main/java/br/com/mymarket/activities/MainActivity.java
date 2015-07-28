@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.EditText;
 import android.widget.Toast;
 import br.com.mymarket.R;
@@ -157,17 +159,23 @@ public class MainActivity extends AppBaseActivity implements
 	}
 
 	public void acessarApk(View view) {
-		EditText cellPhone = (EditText) findViewById(R.id.oat_cellphone);
-		String phone = StringUtils.replaceCharacters(cellPhone.getText().toString());
+		EditText email = (EditText) findViewById(R.id.oat_email);
+		EditText password = (EditText) findViewById(R.id.oat_senha);
 		if (CheckConnectivity.isOffLine(this)) {
 			Toast.makeText(this, R.string.internet_fora, Toast.LENGTH_LONG)
 					.show();
-		} else if(!PhoneNumberUtils.isWellFormedSmsAddress(phone)) {
-			Toast.makeText(this, R.string.numero_invalido, Toast.LENGTH_LONG).show();
+		} else if(!StringUtils.isValidEmail(email.getText())) {
+			Toast.makeText(this, R.string.email_invalido, Toast.LENGTH_LONG).show();
+		} else if(TextUtils.isEmpty(password.getText())){
+			Toast.makeText(this, R.string.password_invalido, Toast.LENGTH_LONG).show();
 		} else {
-			new OauthTask(this.getMyMarketApplication(), this.eventOauth).execute(phone);
+			new OauthTask(this.getMyMarketApplication(), this.eventOauth).execute(email.getText().toString(),password.getText().toString());
 			alteraEstadoEExecuta(EstadoMainActivity.AGUARDANDO_PERFIL);
 		}
+	}
+
+	public void cadastrarActivity(View view) {
+		alteraEstadoEExecuta(EstadoMainActivity.CADASTRAR);
 	}
 
 	@Override
@@ -191,8 +199,21 @@ public class MainActivity extends AppBaseActivity implements
 		return perfil;
 	}
 
+	@Override
+	public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+		return super.dispatchPopulateAccessibilityEvent(event);
+	}
+
 	public void buscarMeuPerfil() {
 		this.buscarMeuPerfilTask = new BuscarMeuPerfilTask(getMyMarketApplication(),this.event);
 		this.buscarMeuPerfilTask.execute();
+	}
+
+	public void backToMain(View view) {
+		alteraEstadoEExecuta(EstadoMainActivity.OAUTH);
+	}
+
+	public void registerUser(View view) {
+		//post to register task.
 	}
 }

@@ -19,6 +19,31 @@
         android:paddingBottom="50dp" >
 
         <EditText
+            android:id="@+id/oat_name"
+            android:layout_width="match_parent"
+            style="@style/SignInEditText"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="50"
+            android:hint="@string/nome" >
+            <requestFocus />
+        </EditText>
+
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/oat_cellphone"
+            android:layout_width="match_parent"
+            style="@style/SignInEditText"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="50"
+            android:hint="@string/numerodecelular" >
+        </EditText>
+
+
+        <EditText
+            android:layout_marginTop="15dp"
             android:id="@+id/oat_email"
             android:layout_width="match_parent"
             style="@style/SignInEditText"
@@ -26,30 +51,55 @@
             android:inputType="textEmailAddress"
             android:maxLength="50"
             android:hint="@string/email" >
-            <requestFocus />
         </EditText>
 
+
         <EditText
-            android:id="@+id/oat_senha"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/oat_confirm_email"
             android:layout_width="match_parent"
-			style="@style/SignInEditText"
+            style="@style/SignInEditText"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLength="50"
+            android:hint="@string/confirm_email" >
+        </EditText>
+
+
+        <EditText
+            android:layout_marginTop="15dp"
+            android:id="@+id/oat_senha"
+            android:layout_width="match_parent"
+            style="@style/SignInEditText"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:maxLength="10"
             android:hint="@string/senha" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:id="@+id/oat_confirm_senha"
+            android:layout_width="match_parent"
+            style="@style/SignInEditText"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLength="50"
+            android:hint="@string/confirm_senha" >
+        </EditText>
+
+
 
         <TextView
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/cadastrar"
+            android:id="@+id/japossuicadastro"
             android:textColor="@android:color/black"
             android:textSize="20dp"
-            android:onClick="cadastrarActivity"
+            android:onClick="backToMain"
             android:textStyle="bold"
-            android:text="@string/cadastrar"/>
+            android:text="@string/possuicadastro"/>
 
        <Button
        	   android:id="@+id/oat_button"
@@ -59,9 +109,9 @@
            android:layout_marginTop="15dp"
            android:background="@drawable/button_background_states"
            android:gravity="center"
-           android:onClick="acessarApk"
+           android:onClick="register"
            android:padding="10dp"
-           android:text="@string/acessar"
+           android:text="@string/register"
            android:textColor="@color/text"
            android:textSize="20sp"
            android:textStyle="bold" />      
