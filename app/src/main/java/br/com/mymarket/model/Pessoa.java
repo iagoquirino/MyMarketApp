@@ -22,6 +22,8 @@ public class Pessoa implements Serializable,Parcelable,Comparable<Pessoa>{
 	private String email;
 	
 	private String nome;
+
+	private String deviceId;
 	
 	private Calendar dataCriacao;
 	
@@ -97,6 +99,14 @@ public class Pessoa implements Serializable,Parcelable,Comparable<Pessoa>{
 
 	public void setDataAlteracao(Calendar dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	@Override

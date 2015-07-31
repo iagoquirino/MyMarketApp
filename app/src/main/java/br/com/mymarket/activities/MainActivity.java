@@ -25,6 +25,7 @@ import br.com.mymarket.receivers.OauthReceiver;
 import br.com.mymarket.receivers.PerfilReceiver;
 import br.com.mymarket.tasks.BuscarMeuPerfilTask;
 import br.com.mymarket.tasks.OauthTask;
+import br.com.mymarket.tasks.RegisterTask;
 import br.com.mymarket.utils.StringUtils;
 
 public class MainActivity extends AppBaseActivity implements
@@ -214,6 +215,26 @@ public class MainActivity extends AppBaseActivity implements
 	}
 
 	public void registerUser(View view) {
-		//post to register task.
+		final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+		EditText name = (EditText) findViewById(R.id.oat_name);
+		EditText cellphone = (EditText) findViewById(R.id.oat_cellphone);
+		EditText email = (EditText) findViewById(R.id.oat_email);
+		EditText confirm_email = (EditText) findViewById(R.id.oat_confirm_email);
+		EditText password = (EditText) findViewById(R.id.oat_senha);
+		EditText confirm_password = (EditText) findViewById(R.id.oat_confirm_senha);
+		String phone = StringUtils.replaceCharacters(cellphone.getText().toString());
+		if (CheckConnectivity.isOffLine(this)) {
+			Toast.makeText(this, R.string.internet_fora, Toast.LENGTH_LONG)
+					.show();
+		} else if(!StringUtils.isValidEmail(email.getText()) && !email.getText().toString().equals(confirm_email.getText().toString())) {
+			Toast.makeText(this, R.string.email_invalido, Toast.LENGTH_LONG).show();
+		} else if(TextUtils.isEmpty(password.getText()) && !password.getText().toString().equals(confirm_password.getText().toString())){
+			Toast.makeText(this, R.string.password_invalido, Toast.LENGTH_LONG).show();
+		} else if(!PhoneNumberUtils.isWellFormedSmsAddress(phone)) {
+			Toast.makeText(this, R.string.numero_invalido, Toast.LENGTH_LONG).show();
+		} else {
+			new RegisterTask(this.getMyMarketApplication(), this.eventOauth).execute(name.getText().toString(),phone,email.getText().toString(), password.getText().toString(),tm.getDeviceId());
+			alteraEstadoEExecuta(EstadoMainActivity.AGUARDANDO_PERFIL);
+		}
 	}
 }
