@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import br.com.mymarket.R;
+import br.com.mymarket.enuns.StatusProduto;
 import br.com.mymarket.model.Produto;
 
 public class FormularioProdutosHelper {
@@ -34,6 +35,7 @@ public class FormularioProdutosHelper {
 			botao.setText("Confirmar");
 			this.produto = produto;
 		}else{
+			this.produto.setStatusProduto(StatusProduto.PENDENTE);
 			botao.setText("Inserir");
 		}
 	}

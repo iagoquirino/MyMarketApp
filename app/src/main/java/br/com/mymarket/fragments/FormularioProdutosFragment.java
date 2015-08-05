@@ -8,20 +8,26 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
 import br.com.mymarket.R;
 import br.com.mymarket.activities.ProdutosActivity;
+import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.helpers.FormularioProdutosHelper;
 import br.com.mymarket.model.Produto;
 import br.com.mymarket.navegacao.EstadoProdutosActivity;
+import br.com.mymarket.tasks.PersistObjectTask;
 
 public class FormularioProdutosFragment extends Fragment {
 
 	private FormularioProdutosHelper formularioProdutosHelper;
+	private ProdutosActivity activity;
 	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	View view = inflater.inflate(R.layout.fragment_form_produtos, container, false);
-    	final ProdutosActivity activity = ((ProdutosActivity)this.getActivity());
+    	activity = ((ProdutosActivity)this.getActivity());
     	formularioProdutosHelper = new FormularioProdutosHelper(view);
     	formularioProdutosHelper.colocarProdutoNoFormulario(activity.getItemSelecionado());
     	Button button = (Button)view.findViewById(R.id.btn_form_produtos);
@@ -30,15 +36,12 @@ public class FormularioProdutosFragment extends Fragment {
 			public void onClick(View view) {
 				Produto produto = formularioProdutosHelper.recuperarProduto();
 				if(validarProduto(produto)){
-					//TODO PERSIST OR POST OR PUT.
+					String json = new Gson().toJson(produto);
 					if(activity.getItemSelecionado() == null){
-						activity.persiste(produto);
-						activity.toastInserido();
+						new PersistObjectTask(getUri(),activity,json, HttpMethod.POST).execute();
 					}else{
-						activity.persiste(produto);
-						activity.toastInserido();
-					}					
-					activity.alteraEstadoEExecuta(EstadoProdutosActivity.CADASTRAR);
+						new PersistObjectTask(getUri()+"/",produto.getId(),activity,json,HttpMethod.PUT).execute();
+					}
 				}
 			}
 
@@ -52,4 +55,8 @@ public class FormularioProdutosFragment extends Fragment {
 		});
         return view;
     }
+
+	public String getUri(){
+		return activity.getUri()+activity.getListaCompra().getId();
+	}
 }

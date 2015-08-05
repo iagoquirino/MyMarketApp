@@ -37,6 +37,15 @@ public class PersistObjectTask extends AsyncTask<String, Void, String> {
     }
 
 
+    public PersistObjectTask(String uri,AppBaseActivity activity, String json, HttpMethod httpMethod) {
+        this(activity,json,httpMethod);
+        this.uri = uri;
+    }
+
+    public PersistObjectTask(String uri,Long id, AppBaseActivity activity, String json, HttpMethod httpMethod) {
+        this(id,activity,json,httpMethod);
+        this.uri = uri;
+    }
 
     @Override
     protected String doInBackground(String... params) {

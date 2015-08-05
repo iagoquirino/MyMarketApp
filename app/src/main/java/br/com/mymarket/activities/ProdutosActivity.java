@@ -21,6 +21,7 @@ import br.com.mymarket.adapters.ProdutosAdapter;
 import br.com.mymarket.constants.Constants;
 import br.com.mymarket.constants.Extras;
 import br.com.mymarket.delegates.BuscaInformacaoDelegate;
+import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.infra.ActionModeProdutoCallback;
 import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.model.ListaCompra;
@@ -28,6 +29,7 @@ import br.com.mymarket.model.Produto;
 import br.com.mymarket.navegacao.EstadoProdutosActivity;
 import br.com.mymarket.receivers.ProdutoReceiver;
 import br.com.mymarket.tasks.BuscarProdutosTask;
+import br.com.mymarket.tasks.PersistObjectTask;
 import br.com.mymarket.utils.MaskWatcher;
 
 public class ProdutosActivity extends AppBaseActivity implements BuscaInformacaoDelegate{
@@ -81,11 +83,9 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 			alertDialog.setPositiveButton(R.string.comum_sim, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
-					//FIXME CHAMAR DELETE.
-					if (getItemSelecionado() != null) {
-						getProdutos().remove(getItemSelecionado());
+					if(getItemSelecionado() != null){
+						new PersistObjectTask(getItemSelecionado().getId(),ProdutosActivity.this,null, HttpMethod.DELETE).execute();
 					}
-					alteraEstadoEExecuta(EstadoProdutosActivity.LISTAGEM);//FIXME ALTERAR INICIO.
 				}
 			});
 			alertDialog.setNegativeButton(R.string.comum_nao, null);
@@ -272,5 +272,9 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 
 	public void atualizarLista(){
 		alteraEstadoEExecuta(EstadoProdutosActivity.INICIO);
+	}
+
+	public ListaCompra getListaCompra() {
+		return listaCompra;
 	}
 }

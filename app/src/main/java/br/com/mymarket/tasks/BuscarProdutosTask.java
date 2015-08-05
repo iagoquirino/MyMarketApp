@@ -4,12 +4,15 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import br.com.mymarket.MyMarketApplication;
+import br.com.mymarket.converters.GrupoConverter;
+import br.com.mymarket.converters.ProdutoConverter;
 import br.com.mymarket.delegates.ReceiverDelegate;
 import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.mocks.ProdutoMock;
 import br.com.mymarket.model.ListaCompra;
 import br.com.mymarket.model.Produto;
 import br.com.mymarket.webservice.Pagina;
+import br.com.mymarket.webservice.WebClient;
 
 public class BuscarProdutosTask extends AsyncTask<Pagina, Void, List<Produto>> {
 
@@ -28,11 +31,8 @@ public class BuscarProdutosTask extends AsyncTask<Pagina, Void, List<Produto>> {
     @Override
     protected List<Produto> doInBackground(Pagina... paginas) {
         try {
-            //FIXME FAZER PARTE SERVIDOR.
-//			Pagina paginaParaBuscar = paginas.length > 1? paginas[0] : new Pagina();        	
-//          String jsonDeResposta = new WebClient("post/list?" + paginaParaBuscar,this.application).get();
-//          List<Produto> listasRecebidas = new ListaCompraConverter().convert(jsonDeResposta);
-            return ProdutoMock.get();
+            String jsonDeResposta = new WebClient("produtos/"+this.listaCompra.getId(),this.application).get();
+            return new ProdutoConverter().convert(jsonDeResposta);
         } catch (Exception e) {
             this.erro = e;
             return null;

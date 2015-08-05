@@ -20,6 +20,7 @@ import br.com.mymarket.constants.Constants;
 import br.com.mymarket.constants.Extras;
 import br.com.mymarket.delegates.BuscaInformacaoDelegate;
 import br.com.mymarket.delegates.ReceiverDelegate;
+import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.fragments.FormularioListaDeComprasFragment;
 import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.model.Grupo;
@@ -31,6 +32,7 @@ import br.com.mymarket.receivers.GrupoReceiver;
 import br.com.mymarket.receivers.ListaCompraReceiver;
 import br.com.mymarket.tasks.BuscarGrupoTask;
 import br.com.mymarket.tasks.BuscarMaisListaCompraTask;
+import br.com.mymarket.tasks.PersistObjectTask;
 
 public class ListaComprasActivity extends AppBaseActivity implements BuscaInformacaoDelegate {
 	
@@ -109,11 +111,9 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
 			alertDialog.setPositiveButton(R.string.comum_sim, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
-					//FIXME CHAMAR DELETE.
-					if(getItemSelecionado() != null){
-						getListaCompras().remove(getItemSelecionado());
-					}
-					alteraEstadoEExecuta(EstadoListaComprasActivity.LISTAS_RECEBIDAS);//FIXME ALTERAR INICIO.
+                    if(getItemSelecionado() != null){
+                        new PersistObjectTask(getItemSelecionado().getId(),ListaComprasActivity.this,null, HttpMethod.DELETE).execute();
+                    }
 				}
 			});
 			alertDialog.setNegativeButton(R.string.comum_nao, null);
