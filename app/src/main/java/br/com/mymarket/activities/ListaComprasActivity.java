@@ -52,6 +52,7 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
         this.event = new ListaCompraReceiver().registraObservador(this);
         this.eventGrupo = new GrupoReceiver().registraObservador(this);
         getActionBar().setTitle(R.string.tela_lista_compras);
+        MyLog.i("on CREATE LISTA");
     }
     
     @Override
@@ -74,7 +75,7 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
         this.estado.executa(this);
     }
     
-    
+
 	@Override
 	public void onBackPressed() {
 		if(this.estado == EstadoListaComprasActivity.CADASTRAR_LISTA
@@ -168,6 +169,12 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
             alteraEstadoEExecuta(EstadoListaComprasActivity.LISTAS_RECEBIDAS);
 		}
 	}
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        this.eventGrupo.desregistra(getMyMarketApplication());
+    }
 
 	public void buscarListasDeCompras() {
         new BuscarMaisListaCompraTask(getMyMarketApplication(),this.event).execute();

@@ -48,12 +48,13 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
         this.estado = EstadoGrupoActivity.INICIO;
         this.event = new GrupoReceiver().registraObservador(this);
         getActionBar().setTitle(R.string.tela_grupos);
+        MyLog.i("on CREATE GRUPO");
     }
     
     @Override
     public void onSaveInstanceState(Bundle outState){
         MyLog.i("SALVANDO ESTADO!!");
-        outState.putSerializable(Constants.ESTADO_ATUAL,this.estado);
+        outState.putSerializable(Constants.ESTADO_ATUAL, this.estado);
     }
 
     @Override
