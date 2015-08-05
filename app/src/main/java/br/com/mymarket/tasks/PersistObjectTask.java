@@ -1,15 +1,9 @@
 package br.com.mymarket.tasks;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.telephony.PhoneNumberUtils;
 
-import br.com.mymarket.MyMarketApplication;
-import br.com.mymarket.activities.GrupoActivity;
+import br.com.mymarket.activities.AppBaseActivity;
 import br.com.mymarket.converters.MensagemConverter;
-import br.com.mymarket.converters.TokenConverter;
-import br.com.mymarket.delegates.ReceiverDelegate;
 import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.webservice.WebClient;
@@ -17,24 +11,26 @@ import br.com.mymarket.webservice.WebClient;
 /**
  * Created by Iago on 23/10/2014.
  */
-public class PersistGrupoTask extends AsyncTask<String, Void, String> {
+public class PersistObjectTask extends AsyncTask<String, Void, String> {
 
-    private GrupoActivity activity;
-    private String url = "grupos/";
+    private AppBaseActivity activity;
+    private String uri;
     private Long id;
     private String json;
     private HttpMethod httpMethod;
 
-    public PersistGrupoTask(GrupoActivity activity,String json,HttpMethod httpMethod) {
+    public PersistObjectTask(AppBaseActivity activity, String json, HttpMethod httpMethod) {
         this.activity = activity;
+        this.uri = activity.getUri();
         this.json = json;
         this.httpMethod = httpMethod;
         activity.getMyMarketApplication().registra(this);
     }
 
-    public PersistGrupoTask(Long id, GrupoActivity activity,String json, HttpMethod httpMethod) {
+    public PersistObjectTask(Long id, AppBaseActivity activity, String json, HttpMethod httpMethod) {
         this.id = id;
         this.activity = activity;
+        this.uri = activity.getUri();
         this.json = json;
         this.httpMethod = httpMethod;
         activity.getMyMarketApplication().registra(this);
@@ -46,12 +42,13 @@ public class PersistGrupoTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String json = this.json;
         String response = "";
+        MyLog.i("SEND:"+ json);
         if(this.httpMethod == HttpMethod.POST){
-            response = new WebClient(url,activity.getMyMarketApplication()).post(json, true);
+            response = new WebClient(uri,activity.getMyMarketApplication()).post(json, true);
         }else if(this.httpMethod == HttpMethod.PUT){
-            response = new WebClient(url+id.longValue(),activity.getMyMarketApplication()).put(json, true);
+            response = new WebClient(uri +id.longValue(),activity.getMyMarketApplication()).put(json, true);
         }else if(this.httpMethod == HttpMethod.DELETE){
-            response = new WebClient(url+id.longValue(),activity.getMyMarketApplication()).delete();
+            response = new WebClient(uri +id.longValue(),activity.getMyMarketApplication()).delete();
         }
         return new MensagemConverter().convert(response);
     }

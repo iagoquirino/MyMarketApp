@@ -131,5 +131,12 @@ public abstract class AppBaseActivity extends Activity {
     public void toastErro() {
         Toast.makeText(this, getString(R.string.erro_api), Toast.LENGTH_LONG).show();
     }
-	
+
+	public void atualizarLista(){
+
+    }
+
+    public String getUri(){
+        return null;
+    }
 }

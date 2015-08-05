@@ -36,7 +36,9 @@
     <string name="grupos">Grupos</string>
     <string name="numerodecelular">Digite Seu Número de Celular</string>
     <string name="acessar">Acessar</string>
+    <string name="comum_erro">Ocorreu um Erro!</string>
 
+    <string name="nome_invalido">Nome inválido!!</string>
     <string name="email_invalido">Email inválido!!</string>
     <string name="password_invalido">Senha inválida!!</string>
     <string name="numero_invalido">Número inválido!!</string>

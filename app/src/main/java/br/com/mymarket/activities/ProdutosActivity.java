@@ -82,7 +82,7 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
 					//FIXME CHAMAR DELETE.
-					if(getItemSelecionado() != null){
+					if (getItemSelecionado() != null) {
 						getProdutos().remove(getItemSelecionado());
 					}
 					alteraEstadoEExecuta(EstadoProdutosActivity.LISTAGEM);//FIXME ALTERAR INICIO.
@@ -110,10 +110,12 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
         this.estado.executa(this);
     }
 
-    public void processaResultado(Object obj){
-    	List<Produto> listas = (List<Produto>) obj;
-    	atualizaListaCom(listas);
-    	alteraEstadoEExecuta(EstadoProdutosActivity.LISTAGEM);
+    public void processaResultado(Class clazz,Object obj){
+		if(Produto.class.equals(clazz)) {
+			List<Produto> listas = (List<Produto>) obj;
+			atualizaListaCom(listas);
+			alteraEstadoEExecuta(EstadoProdutosActivity.LISTAGEM);
+		}
     }
     
 	private void atualizaListaCom(List<Produto> listas) {
@@ -262,5 +264,13 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 		alertDialog.setNegativeButton(R.string.comum_cancelar, null);
 		alertDialog.show();
 	}
-	
+
+	public String getUri(){
+		return "produtos/";
+	}
+
+
+	public void atualizarLista(){
+		alteraEstadoEExecuta(EstadoProdutosActivity.INICIO);
+	}
 }

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -25,8 +26,7 @@ import br.com.mymarket.model.Pessoa;
 import br.com.mymarket.navegacao.EstadoGrupoActivity;
 import br.com.mymarket.receivers.GrupoReceiver;
 import br.com.mymarket.tasks.BuscarGrupoTask;
-import br.com.mymarket.tasks.PersistGrupoTask;
-import br.com.mymarket.webservice.WebClient;
+import br.com.mymarket.tasks.PersistObjectTask;
 
 public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDelegate{
 	
@@ -34,8 +34,13 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
 	private List<Grupo> listaGrupo = new ArrayList<Grupo>();
 	private Grupo itemSelecionado;
 	private List<Pessoa> contatosSelecionados = new ArrayList<Pessoa>();
-	
-    @Override
+
+	@Override
+	public void sendBroadcastAsUser(Intent intent, UserHandle user) {
+		super.sendBroadcastAsUser(intent, user);
+	}
+
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -101,7 +106,7 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
 					if(getItemSelecionado() != null){
-                        new PersistGrupoTask(getItemSelecionado().getId(),GrupoActivity.this,null, HttpMethod.DELETE).execute();
+                        new PersistObjectTask(getItemSelecionado().getId(),GrupoActivity.this,null, HttpMethod.DELETE).execute();
 					}
 				}
 			});
@@ -140,15 +145,23 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void processaResultado(Object obj) {
-		List<Grupo> listaGrupo = (List<Grupo>) obj; 
-    	atualizaListaCom(listaGrupo);  
-    	alteraEstadoEExecuta(EstadoGrupoActivity.LISTAS_RECEBIDAS);
+	@Override
+	public void processaResultado(Class clazz,Object obj) {
+		if(Grupo.class.equals(clazz)){
+            List<Grupo> listaGrupo = (List<Grupo>) obj;
+    		atualizaListaCom(listaGrupo);
+    		alteraEstadoEExecuta(EstadoGrupoActivity.LISTAS_RECEBIDAS);
+		}
 	}
 
 	private void atualizaListaCom(List<Grupo> listaGrupo) {
 		getListaGrupo().clear();
 		getListaGrupo().addAll(listaGrupo);
+	}
+
+	@Override
+	public void processarException(Exception e) {
+		super.processarException(e);
 	}
 
 	public void buscarListaGrupo() {
@@ -198,5 +211,9 @@ public class GrupoActivity extends AppBaseActivity implements BuscaInformacaoDel
 	public List<Pessoa> getContatosSelecionados() {
 		return this.contatosSelecionados;
 	}
+
+    public String getUri(){
+        return "grupos/";
+    }
 	
 }

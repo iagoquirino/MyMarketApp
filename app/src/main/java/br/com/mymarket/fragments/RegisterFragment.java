@@ -28,15 +28,4 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    public void backToMain(View view){
-        MyLog.i("CLICK BACK TO MAIN");
-        ((MainActivity)this.getActivity()).backToMain(view);
-    }
-
-    public void register(View view) {
-        MyLog.i("CLICK REGISTER USER");
-        ((MainActivity)this.getActivity()).registerUser(view);
-    }
-
-    
 }

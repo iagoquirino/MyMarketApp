@@ -23,9 +23,14 @@ public enum EstadoListaComprasActivity {
     	public void executa(ListaComprasActivity activity){
     		FragmentUtils.colocaOuBuscaFragmentNaTela(activity,R.id.fragment_principal,ListaCompraFragment.class,false);
     	}
+    },CARREGAR_FORMULARIO{
+        public void executa(ListaComprasActivity activity){
+            activity.buscarGrupos();
+            FragmentUtils.colocaOuBuscaFragmentNaTela(activity,R.id.fragment_principal,ProgressFragment.class,false);
+        }
     },CADASTRAR_LISTA{
     	public void executa(ListaComprasActivity activity){
-    		FragmentUtils.colocaOuBuscaFragmentNaTela(activity,R.id.fragment_principal,FormularioListaDeComprasFragment.class,false);
+            FragmentUtils.colocaOuBuscaFragmentNaTela(activity,R.id.fragment_principal,FormularioListaDeComprasFragment.class,false);
     	}
     },INFORMACOES_COMPRAS{
     	public void executa(ListaComprasActivity activity){

@@ -46,7 +46,7 @@ public class PessoaReceiver extends BroadcastReceiver implements ReceiverDelegat
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getBooleanExtra(Constants.SUCESSO,false) == true){
-        	delegate.processaResultado((List<Pessoa>) intent.getSerializableExtra(RESULTADO_PESSOA));
+        	delegate.processaResultado(Pessoa.class,(List < Pessoa >) intent.getSerializableExtra(RESULTADO_PESSOA));
         }else{
         	delegate.processarException(new MyMarketException());
         }

@@ -13,6 +13,7 @@ import br.com.mymarket.constants.Constants;
 import br.com.mymarket.delegates.BuscaInformacaoDelegate;
 import br.com.mymarket.delegates.ReceiverDelegate;
 import br.com.mymarket.exception.MyMarketException;
+import br.com.mymarket.model.Pessoa;
 import br.com.mymarket.model.Produto;
 
 public class ProdutoReceiver extends BroadcastReceiver implements ReceiverDelegate{
@@ -45,7 +46,7 @@ public class ProdutoReceiver extends BroadcastReceiver implements ReceiverDelega
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getBooleanExtra(Constants.SUCESSO,false) == true){
-        	delegate.processaResultado((List<Produto>) intent.getSerializableExtra(RESULTADO_PRODUTO));
+        	delegate.processaResultado(Pessoa.class,(List < Produto >) intent.getSerializableExtra(RESULTADO_PRODUTO));
         }else{
         	delegate.processarException(new MyMarketException());
         }

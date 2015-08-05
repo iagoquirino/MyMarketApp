@@ -4,6 +4,6 @@ import br.com.mymarket.MyMarketApplication;
 
 public interface BuscaInformacaoDelegate {
     MyMarketApplication getMyMarketApplication();
-    void processaResultado(Object obj);
+    void processaResultado(Class clazz,Object obj);
     void processarException(Exception e);
 }

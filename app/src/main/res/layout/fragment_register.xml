@@ -102,7 +102,7 @@
             android:text="@string/possuicadastro"/>
 
        <Button
-       	   android:id="@+id/oat_button"
+       	   android:id="@+id/oat_register"
            style="@style/ShadowText"
        	   android:layout_width="match_parent"
            android:layout_height="wrap_content"

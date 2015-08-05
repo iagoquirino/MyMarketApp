@@ -8,7 +8,7 @@ public class TokenConverter {
 	        	JSONObject js = new JSONObject(json);
 	        	return js.getString("token");
 	        } catch (Exception e) {
-	            throw new RuntimeException(e);
+	            return null;
 	        }
 	    }
 }

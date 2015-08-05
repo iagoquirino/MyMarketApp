@@ -43,7 +43,7 @@ public class OauthReceiver extends BroadcastReceiver implements ReceiverDelegate
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getBooleanExtra(Constants.SUCESSO,false) == true){
-        	delegate.processaResultado((String) intent.getSerializableExtra(RESULTADO_OAUTH));
+        	delegate.processaResultado(String.class,(String) intent.getSerializableExtra(RESULTADO_OAUTH));
         }else{
         	delegate.processarException(new MyMarketException());
         }

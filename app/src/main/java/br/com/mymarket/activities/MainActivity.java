@@ -180,16 +180,18 @@ public class MainActivity extends AppBaseActivity implements
 	}
 
 	@Override
-	public void processaResultado(Object obj) {
-		if(obj instanceof Pessoa){
+	public void processaResultado(Class clazz,Object obj) {
+		if(Pessoa.class.equals(clazz)){
 			Pessoa pessoa = (Pessoa) obj;
 			atualizaPerfil(pessoa);
 			alteraEstadoEExecuta(EstadoMainActivity.PERFIL);
-		}else if(obj instanceof String){
+		}else if(String.class.equals(clazz)){
 			getMyMarketApplication().setToken((String)obj);
 			alteraEstadoEExecuta(EstadoMainActivity.INICIO);
 			this.onPrepareOptionsMenu(this.mainMenu);
-		}
+		}else{
+            Toast.makeText(this, R.string.comum_erro, Toast.LENGTH_LONG).show();
+        }
 	}
 	
 	private void atualizaPerfil(Pessoa pessoa) {
@@ -214,7 +216,14 @@ public class MainActivity extends AppBaseActivity implements
 		alteraEstadoEExecuta(EstadoMainActivity.OAUTH);
 	}
 
-	public void registerUser(View view) {
+    @Override
+    public void processarException(Exception e) {
+        super.processarException(e);
+        alteraEstadoEExecuta(EstadoMainActivity.OAUTH);
+    }
+
+    public void register(View view) {
+        MyLog.i("CLICK REGISTER USER");
 		final TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
 		EditText name = (EditText) findViewById(R.id.oat_name);
 		EditText cellphone = (EditText) findViewById(R.id.oat_cellphone);
@@ -224,8 +233,9 @@ public class MainActivity extends AppBaseActivity implements
 		EditText confirm_password = (EditText) findViewById(R.id.oat_confirm_senha);
 		String phone = StringUtils.replaceCharacters(cellphone.getText().toString());
 		if (CheckConnectivity.isOffLine(this)) {
-			Toast.makeText(this, R.string.internet_fora, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(this, R.string.internet_fora, Toast.LENGTH_LONG).show();
+        } else if(TextUtils.isEmpty(name.getText())){
+            Toast.makeText(this, R.string.nome_invalido, Toast.LENGTH_LONG).show();
 		} else if(!StringUtils.isValidEmail(email.getText()) && !email.getText().toString().equals(confirm_email.getText().toString())) {
 			Toast.makeText(this, R.string.email_invalido, Toast.LENGTH_LONG).show();
 		} else if(TextUtils.isEmpty(password.getText()) && !password.getText().toString().equals(confirm_password.getText().toString())){
@@ -237,4 +247,5 @@ public class MainActivity extends AppBaseActivity implements
 			alteraEstadoEExecuta(EstadoMainActivity.AGUARDANDO_PERFIL);
 		}
 	}
+
 }

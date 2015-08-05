@@ -88,10 +88,12 @@ public class PessoaActivity extends AppBaseActivity implements BuscaInformacaoDe
 	}
 
 	@Override
-	public void processaResultado(Object obj) {
-    	List<Pessoa> listas = (List<Pessoa>) obj;
-    	this.adapter = new PessoaAdapter(this, listas);
-    	alteraEstadoEExecuta(EstadoPessoaActivity.LISTAGEM);
+	public void processaResultado(Class clazz,Object obj) {
+		if(Pessoa.class.equals(clazz)) {
+			List<Pessoa> listas = (List<Pessoa>) obj;
+			this.adapter = new PessoaAdapter(this, listas);
+			alteraEstadoEExecuta(EstadoPessoaActivity.LISTAGEM);
+		}
 	}
 
 	public void adicionarContatos(List<Pessoa> list) {
@@ -121,4 +123,5 @@ public class PessoaActivity extends AppBaseActivity implements BuscaInformacaoDe
 			getActionMode().setTitle(String.valueOf(getAdapter().getSelectedCount()) + " " + selecionado);
 		}
 	}
+
 }

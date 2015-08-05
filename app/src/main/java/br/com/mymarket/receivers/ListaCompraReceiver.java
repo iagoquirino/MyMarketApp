@@ -47,7 +47,7 @@ public class ListaCompraReceiver extends BroadcastReceiver implements ReceiverDe
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getBooleanExtra(Constants.SUCESSO,false) == true){
-        	delegate.processaResultado((List<ListaCompra>) intent.getSerializableExtra(RESULTADO_LISTACOMPRAS));
+        	delegate.processaResultado(ListaCompra.class,(List < ListaCompra >) intent.getSerializableExtra(RESULTADO_LISTACOMPRAS));
         }else{
         	delegate.processarException(new MyMarketException());
         }

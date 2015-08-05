@@ -47,7 +47,7 @@ public class GrupoReceiver extends BroadcastReceiver implements ReceiverDelegate
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getBooleanExtra(Constants.SUCESSO,false) == true){
-        	delegate.processaResultado((List<Grupo>) intent.getSerializableExtra(RESULTADO_LISTAGRUPO));
+        	delegate.processaResultado(Grupo.class,(List < Grupo >) intent.getSerializableExtra(RESULTADO_LISTAGRUPO));
         }else{
         	delegate.processarException(new MyMarketException());
         }

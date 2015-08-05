@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -18,18 +19,26 @@ import br.com.mymarket.R;
 import br.com.mymarket.constants.Constants;
 import br.com.mymarket.constants.Extras;
 import br.com.mymarket.delegates.BuscaInformacaoDelegate;
+import br.com.mymarket.delegates.ReceiverDelegate;
+import br.com.mymarket.fragments.FormularioListaDeComprasFragment;
 import br.com.mymarket.infra.MyLog;
+import br.com.mymarket.model.Grupo;
 import br.com.mymarket.model.ListaCompra;
+import br.com.mymarket.navegacao.EstadoGrupoActivity;
 import br.com.mymarket.navegacao.EstadoListaComprasActivity;
 import br.com.mymarket.navegacao.EstadoProdutosActivity;
+import br.com.mymarket.receivers.GrupoReceiver;
 import br.com.mymarket.receivers.ListaCompraReceiver;
+import br.com.mymarket.tasks.BuscarGrupoTask;
 import br.com.mymarket.tasks.BuscarMaisListaCompraTask;
 
 public class ListaComprasActivity extends AppBaseActivity implements BuscaInformacaoDelegate {
 	
 	private EstadoListaComprasActivity estado;
 	private List<ListaCompra> listaCompra = new ArrayList<ListaCompra>();
+    private List<Grupo> listaGrupos = new ArrayList<Grupo>();
     private ListaCompra listaCompraSelecionada;
+    protected ReceiverDelegate eventGrupo;
 	
     
     @Override
@@ -39,13 +48,14 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
         registerBaseActivityReceiver();
         this.estado = EstadoListaComprasActivity.INICIO;
         this.event = new ListaCompraReceiver().registraObservador(this);
+        this.eventGrupo = new GrupoReceiver().registraObservador(this);
         getActionBar().setTitle(R.string.tela_lista_compras);
     }
     
     @Override
     public void onSaveInstanceState(Bundle outState){
         MyLog.i("SALVANDO ESTADO!!");
-        outState.putSerializable(Constants.ESTADO_ATUAL,this.estado);
+        outState.putSerializable(Constants.ESTADO_ATUAL, this.estado);
     }
     
     @Override
@@ -86,7 +96,7 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
 		inflater.inflate(R.menu.menu_lista, menu);
 	    menu.setHeaderTitle(R.string.comum_selecione);  
 	    menu.add(0, v.getId(), 0, (String)getString(R.string.menu_val_add_produtos));
-	    menu.add(0, v.getId(), 0, (String)getString(R.string.menu_val_ja_comprado));
+	    menu.add(0, v.getId(), 0, (String) getString(R.string.menu_val_ja_comprado));
 	}
 	
 	@Override
@@ -109,10 +119,10 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
 			alertDialog.setNegativeButton(R.string.comum_nao, null);
 			alertDialog.show();
 		}else if(item.getItemId() == R.id.cxmenu_alterar){
-			alteraEstadoEExecuta(EstadoListaComprasActivity.CADASTRAR_LISTA);
+			alteraEstadoEExecuta(EstadoListaComprasActivity.CARREGAR_FORMULARIO);
 		}else if(item.getTitle().equals((String)getString(R.string.menu_val_add_produtos))){
 			Intent produtos = new Intent(this,ProdutosActivity.class);
-			produtos.putExtra(Extras.EXTRA_LISTA_COMPRA, (ListaCompra)getItemSelecionado());
+			produtos.putExtra(Extras.EXTRA_LISTA_COMPRA, (ListaCompra) getItemSelecionado());
 			startActivity(produtos);
 		}else if(item.getTitle().equals((String)getString(R.string.menu_val_ja_comprado))){
 			alteraEstadoEExecuta(EstadoListaComprasActivity.INFORMACOES_COMPRAS);
@@ -128,7 +138,7 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
 			return false;
 		}else if(item.getItemId() == R.id.menu_novo) {
 			setItemSelecionado(null);
-			alteraEstadoEExecuta(EstadoListaComprasActivity.CADASTRAR_LISTA);
+			alteraEstadoEExecuta(EstadoListaComprasActivity.CARREGAR_FORMULARIO);
 			return false;
 		} else if (item.getItemId() == R.id.menu_meus_grupos) {
 			startActivity(new Intent(this, GrupoActivity.class));
@@ -144,16 +154,20 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
 		return super.onOptionsItemSelected(item);
 	}
 
-    public void processaResultado(Object obj){
-    	List<ListaCompra> listas = (List<ListaCompra>) obj;
-    	atualizaListaCom(listas);
-    	alteraEstadoEExecuta(EstadoListaComprasActivity.LISTAS_RECEBIDAS);
-    }
-    
-    private void atualizaListaCom(List<ListaCompra> listaCompra) {
- 	   getListaCompras().clear();
- 	   getListaCompras().addAll(listaCompra);
-     }
+	@Override
+	public void processaResultado(Class clazz,Object obj) {
+		if(Grupo.class.equals(clazz)){
+			List<Grupo> listas = (List<Grupo>) obj;
+            getListaGrupos().clear();
+            getListaGrupos().addAll(listas);
+            alteraEstadoEExecuta(EstadoListaComprasActivity.CADASTRAR_LISTA);
+		}else if(ListaCompra.class.equals(clazz)){
+			List<ListaCompra> listas = (List<ListaCompra>) obj;
+            getListaCompras().clear();
+            getListaCompras().addAll(listas);
+            alteraEstadoEExecuta(EstadoListaComprasActivity.LISTAS_RECEBIDAS);
+		}
+	}
 
 	public void buscarListasDeCompras() {
         new BuscarMaisListaCompraTask(getMyMarketApplication(),this.event).execute();
@@ -182,9 +196,25 @@ public class ListaComprasActivity extends AppBaseActivity implements BuscaInform
 		item.setVisible(false);
 		return super.onPrepareOptionsMenu(menu);
 	}
-	
-	public void persiste(ListaCompra listaCompra) {
-		getListaCompras().add(listaCompra);
+
+	@Override
+	public void sendBroadcastAsUser(Intent intent, UserHandle user) {
+		super.sendBroadcastAsUser(intent, user);
 	}
-	
+
+	public void buscarGrupos() {
+		new BuscarGrupoTask(this.getMyMarketApplication(),this.eventGrupo).execute();
+	}
+
+    public List<Grupo> getListaGrupos() {
+        return listaGrupos;
+    }
+
+    public void atualizarLista(){
+        alteraEstadoEExecuta(EstadoListaComprasActivity.INICIO);
+    }
+
+    public String getUri(){
+        return "listaCompras/";
+    }
 }

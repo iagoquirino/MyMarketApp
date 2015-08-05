@@ -1,7 +1,5 @@
 package br.com.mymarket.fragments;
 
-import java.util.List;
-
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,25 +15,16 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.protocol.HTTP;
-
 import br.com.mymarket.R;
 import br.com.mymarket.activities.GrupoActivity;
 import br.com.mymarket.activities.PessoaActivity;
-import br.com.mymarket.adapters.ContatosAdapter;
 import br.com.mymarket.adapters.FormGrupoContatoAdapter;
 import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.helpers.FormularioGrupoHelper;
-import br.com.mymarket.infra.MyLog;
 import br.com.mymarket.model.Grupo;
 import br.com.mymarket.model.Pessoa;
-import br.com.mymarket.model.Produto;
 import br.com.mymarket.navegacao.EstadoGrupoActivity;
-import br.com.mymarket.tasks.PersistGrupoTask;
-import br.com.mymarket.webservice.WebClient;
+import br.com.mymarket.tasks.PersistObjectTask;
 
 public class FormularioGrupoFragment extends Fragment {
 	
@@ -90,11 +79,10 @@ public class FormularioGrupoFragment extends Fragment {
                     String json = new Gson().toJson(grupo);
 
 					if(activity.getItemSelecionado() == null){
-                        new PersistGrupoTask(activity,json, HttpMethod.POST).execute();
+                        new PersistObjectTask(activity,json, HttpMethod.POST).execute();
 					}else{
-                        new PersistGrupoTask(grupo.getId(),activity,json,HttpMethod.PUT).execute();
+                        new PersistObjectTask(grupo.getId(),activity,json,HttpMethod.PUT).execute();
 					}
-					activity.alteraEstadoEExecuta(EstadoGrupoActivity.LISTAS_RECEBIDAS);
 				}
 			}
 			

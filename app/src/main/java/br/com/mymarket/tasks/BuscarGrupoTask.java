@@ -31,8 +31,7 @@ public class BuscarGrupoTask extends AsyncTask<Pagina, Void, List<Grupo>> {
             //FIXME FAZER PARTE SERVIDOR.
 //			Pagina paginaParaBuscar = paginas.length > 1? paginas[0] : new Pagina();        	
             String jsonDeResposta = new WebClient("grupos/",this.application).get();
-            List<Grupo> listasRecebidas = new GrupoConverter().convert(jsonDeResposta);
-            return listasRecebidas;
+            return new GrupoConverter().convert(jsonDeResposta);
         } catch (Exception e) {
             this.erro = e;
             return null;
