@@ -46,7 +46,7 @@ public class ProdutoReceiver extends BroadcastReceiver implements ReceiverDelega
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getBooleanExtra(Constants.SUCESSO,false) == true){
-        	delegate.processaResultado(Pessoa.class,(List < Produto >) intent.getSerializableExtra(RESULTADO_PRODUTO));
+        	delegate.processaResultado(Produto.class,(List < Produto >) intent.getSerializableExtra(RESULTADO_PRODUTO));
         }else{
         	delegate.processarException(new MyMarketException());
         }
