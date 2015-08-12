@@ -68,14 +68,14 @@ public class ProdutosAdapter extends BaseAdapter {
 	private void setImage(ViewHolder viewHolder, Produto produto) {
 		Drawable res = null;
         if(produto.isComprado()){
-        	res = context.getResources().getDrawable(android.R.drawable.arrow_down_float);
+        	res = context.getResources().getDrawable(android.R.drawable.checkbox_on_background);
         }else{
-        	res = context.getResources().getDrawable(android.R.drawable.arrow_up_float);
+        	res = context.getResources().getDrawable(android.R.drawable.checkbox_off_background);
         }
         viewHolder.imageView.setImageDrawable(res);
 	}
-    
-    
+
+
     public void selectView(int position, boolean value) {
 		if (value)
 			mSelectedItemsIds.put(position, value);
@@ -83,7 +83,7 @@ public class ProdutosAdapter extends BaseAdapter {
 			mSelectedItemsIds.delete(position);
 		notifyDataSetChanged();
 	}
-    
+
     public void toggleSelection(int position) {
 		selectView(position, !mSelectedItemsIds.get(position));
 	}
