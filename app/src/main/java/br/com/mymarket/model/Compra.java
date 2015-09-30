@@ -1,6 +1,9 @@
 package br.com.mymarket.model;
 
+import android.content.ClipData;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -17,9 +20,22 @@ public class Compra implements Serializable {
 	
 	private List<ItemCompra> itens;
 
+	private BigDecimal valor;
+
 	private Calendar dataCriacao;
 	
 	private Calendar dataAlteracao;
+
+	public Compra(){
+		super();
+	}
+
+	public Compra(BigDecimal valor, List<ItemCompra> itens){
+		this();
+		this.valor = valor;
+		this.itens = itens;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -59,5 +75,13 @@ public class Compra implements Serializable {
 
 	public void setDataAlteracao(Calendar dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
 	}
 }

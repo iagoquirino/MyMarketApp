@@ -1,5 +1,6 @@
 package br.com.mymarket.activities;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.google.gson.Gson;
+
 import br.com.mymarket.R;
 import br.com.mymarket.adapters.ProdutosAdapter;
 import br.com.mymarket.constants.Constants;
@@ -24,12 +28,15 @@ import br.com.mymarket.delegates.BuscaInformacaoDelegate;
 import br.com.mymarket.enuns.HttpMethod;
 import br.com.mymarket.infra.ActionModeProdutoCallback;
 import br.com.mymarket.infra.MyLog;
+import br.com.mymarket.model.Compra;
+import br.com.mymarket.model.ItemCompra;
 import br.com.mymarket.model.ListaCompra;
 import br.com.mymarket.model.Produto;
 import br.com.mymarket.navegacao.EstadoProdutosActivity;
 import br.com.mymarket.receivers.ProdutoReceiver;
 import br.com.mymarket.tasks.BuscarProdutosTask;
 import br.com.mymarket.tasks.PersistObjectTask;
+import br.com.mymarket.utils.BigDecimalUtils;
 import br.com.mymarket.utils.MaskWatcher;
 
 public class ProdutosActivity extends AppBaseActivity implements BuscaInformacaoDelegate{
@@ -64,12 +71,12 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 		MenuItem alterar = menu.findItem(R.id.cxmenu_alterar);
 		if(getItemSelecionado().isComprado()){
 			deletar.setVisible(false);
-			alterar.setVisible(false);			
-		    menu.add(0, v.getId(), 0, (String)getString(R.string.cxmenu_informacao));
+			alterar.setVisible(false);
+		    menu.add(0, v.getId(), 0, (String) getString(R.string.cxmenu_informacao));
 		}else{
 			deletar.setVisible(true);
 			alterar.setVisible(true);
-		    menu.add(0, v.getId(), 0, (String)getString(R.string.menu_val_sel_produtos));			
+		    menu.add(0, v.getId(), 0, (String)getString(R.string.menu_val_sel_produtos));
 		}
 	}
 	
@@ -83,8 +90,8 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 			alertDialog.setPositiveButton(R.string.comum_sim, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
-					if(getItemSelecionado() != null){
-						new PersistObjectTask(getItemSelecionado().getId(),ProdutosActivity.this,null, HttpMethod.DELETE).execute();
+					if (getItemSelecionado() != null) {
+						new PersistObjectTask(getItemSelecionado().getId(), ProdutosActivity.this, null, HttpMethod.DELETE).execute();
 					}
 				}
 			});
@@ -182,7 +189,7 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 
 	public void setarItensComprados(Produto produto, int posicao) {
 		if(getActionMode() != null){
-			onListItemSelect(produto,posicao);
+			onListItemSelect(produto, posicao);
 		}
 	}
 	
@@ -257,12 +264,23 @@ public class ProdutosActivity extends AppBaseActivity implements BuscaInformacao
 		alertDialog.setPositiveButton(R.string.comum_confirmar, new OnClickListener() {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				//FIXME CHAMAR POST PARA GERAR COMPRA.
-				MyLog.i(listProdutosSelecionados.size()+" - " + editText.getText());
+				Compra compra = new Compra(BigDecimalUtils.parse(editText.getText().toString()),getItemsCompra(listProdutosSelecionados));
+				String json = new Gson().toJson(compra);
+				new PersistObjectTask("compras/"+ProdutosActivity.this.getListaCompra().getId()+"/efetuar",ProdutosActivity.this,json, HttpMethod.POST).execute();
 			}
 		});
 		alertDialog.setNegativeButton(R.string.comum_cancelar, null);
 		alertDialog.show();
+	}
+
+	private List<ItemCompra> getItemsCompra(List<Produto> produtosSelecionados){
+		List<ItemCompra> list = new ArrayList<ItemCompra>();
+		if(produtosSelecionados != null){
+			for (Produto produto : produtosSelecionados) {
+				list.add(new ItemCompra(produto.getId()));
+			}
+		}
+		return list;
 	}
 
 	public String getUri(){

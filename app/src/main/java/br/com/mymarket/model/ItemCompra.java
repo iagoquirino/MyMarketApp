@@ -11,12 +11,21 @@ public class ItemCompra implements Serializable {
 	private static final long serialVersionUID = 5624449590365259853L;
 
 	private Long id;
-	
-	private Produto produto;
-	
-	private Calendar dataCriacao;
-	
-	private Calendar dataAlteracao;
+
+	private Long idProduto;
+
+	private String marca;
+
+	private String nome;
+
+	public ItemCompra(){
+		super();
+	}
+
+	public ItemCompra(long idProduto){
+		this();
+		this.idProduto= idProduto;
+	}
 
 	public Long getId() {
 		return id;
@@ -26,27 +35,27 @@ public class ItemCompra implements Serializable {
 		this.id = id;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public Long getIdProduto() {
+		return idProduto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setIdProduto(Long idProduto) {
+		this.idProduto = idProduto;
 	}
 
-	public Calendar getDataCriacao() {
-		return dataCriacao;
+	public String getMarca() {
+		return marca;
 	}
 
-	public void setDataCriacao(Calendar dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 
-	public Calendar getDataAlteracao() {
-		return dataAlteracao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDataAlteracao(Calendar dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }
