@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="purchases_made">Compras Realizadas</string>
+    <string name="purchase_name">Informação:</string>
     <string name="register">Registrar</string>
     <string name="email">Endereço de Email</string>
     <string name="confirm_email">Confirme seu Endereço de Email</string>
